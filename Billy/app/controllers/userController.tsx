@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/AsyncStorage";
+import { supabase } from "@/lib/supabaseClient";
 
 export default class UserController {
 
