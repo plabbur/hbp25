@@ -1,15 +1,12 @@
+import Button from "@/components/Button";
 import Feather from "@expo/vector-icons/Feather";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView, View, Text, TouchableOpacity, useWindowDimensions, Image } from "react-native";
 import colors from "tailwindcss/colors";
-import { CameraView, useCameraPermissions } from 'expo-camera';
-
-import Button from "@/components/Button";
-// import { useEffect, useRef, useState } from "react";
 
 export default function ViewPhoto() {
-    const screenHeight = useWindowDimensions().height;
-    const {photo} = useLocalSearchParams(); // Store captured photo
+    const { photo } = useLocalSearchParams(); // Store captured photo
+    const decodedPhoto = decodeURIComponent(photo);
 
     return (
         <SafeAreaView className="flex-1 my-3 items-center mx-3">
@@ -27,32 +24,26 @@ export default function ViewPhoto() {
                 <View className="w-12" />
             </View>
 
-            <View>
-                <Image
-                    source={{ uri: photo }}
-                    className="w-full h-full"
-                />
+            {/* Outer Frame with Padding */}
+            <View 
+                className="mt-3 rounded-3xl shadow-3xl justify-center items-center bg-white border-4"
+                style={{ height: 620, width: 350, borderColor: colors.white, padding: 4 }}
+            >
+                {photo ? (
+                    <Image
+                        source={{ uri: decodedPhoto }}
+                        style={{ width: "100%", height: "100%", resizeMode: "cover" }}
+                        className="rounded-2xl"
+                    />
+                ) : (
+                    <Text>Loading photo...</Text>
+                )}
             </View>
 
-
-            {/* This is gonna be where the camera is */}
-            {/* <View className="w-full mt-3 rounded-3xl shadow-3xl justify-center px-1 py-1"
-                style={{ height: screenHeight - 150, borderWidth: 3, borderColor: colors.blue[600] }}>
-                {!permission ? (
-                    <Text>Loading</Text>
-                ) : !permission.granted ? (
-                    <View className="items-center">
-                        <Text className="font-inter">Enable camera to scan your receipt</Text>
-                        <Button title="Enable camera" onPress={requestPermission} textStyles="text-white" buttonStyles="bg-blue-600 mx-10"/>
-                    </View>
-                ) : (
-                    <View className="rounded-2xl" style={{ flex: 1, overflow: "hidden" }}>
-                        
-                    </View>
-                )}
-            </View> */}
-
+            <View className="w-full flex-row relative mt-5">
+                <Button title="Retake photo" onPress={() => {console.log("Retake photo")}} textStyles="text-zinc-400" buttonStyles="bg-white mx-2"/>
+                <Button title="Looks good" onPress={() => {console.log("Looks good")}} textStyles="text-white" buttonStyles="bg-blue-600 mx-2"/>
+            </View>
         </SafeAreaView>
-    )
-    
+    );
 }
