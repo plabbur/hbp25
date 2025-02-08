@@ -1,5 +1,4 @@
 import { supabase } from "@/lib/AsyncStorage";
-import { UserAccessor } from "../dbAccessors/userAccessor";
 
 export default class UserController {
 
