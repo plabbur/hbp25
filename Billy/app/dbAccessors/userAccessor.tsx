@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/AsyncStorage";
+import { supabase } from "../../lib/supabaseClient";
 
 /**
  *  Database accessor for users.
@@ -6,6 +6,6 @@ import { supabase } from "../../lib/AsyncStorage";
  */
 export default class UserAccessor {
     // getUserByID
-    // getUserIDByEmail
+    // getUserIDByEmail orUsername
     // what else...
 }
