@@ -1,8 +1,8 @@
 import { Item } from './item';
-import * as fs from 'fs';
-import * as path from 'path';
-import FormData from 'form-data';
-import fetch from 'node-fetch';
+import { Platform } from 'react-native';
+const RNFS = require('react-native-fs');
+const FormData = require('form-data');
+const Config = require('react-native-config');
 
 export class Receipt {
   private id : number;
@@ -29,31 +29,42 @@ export class Receipt {
     this.items = this.items.filter(i => i.getId() !== item.getId());
   }
 
-  private async readReceipt(imagePathOfReceipt : string) : Promise<any> {
-    const prompt = "Generate a line-separated list of items on this receipt in the form \"{item_name} : {price}\". \
-    If an item has a quantity of more than one, list it that many times."
-    const apiKey = process.env.OPENAI_API_KEY;
+  private async readReceipt(imagePathOfReceipt: string): Promise<any> {
+    const prompt = `Generate a line-separated list of items on this receipt in the form "{item_name} : {price}". 
+    If an item has a quantity of more than one, list it that many times.`;
+
+    const apiKey = Config.OPENAI_API_KEY; // Use the API key from .env via react-native-config
 
     try {
+      // Create a form to send the request to the API
       const form = new FormData();
-      form.append('file', fs.createReadStream(imagePathOfReceipt), {
-        filename: path.basename(imagePathOfReceipt),
+      
+      // Read the image file from the local file system using react-native-fs
+      const imagePath = Platform.OS === 'android' ? imagePathOfReceipt : 'file://' + imagePathOfReceipt;
+      const file = await RNFS.readFile(imagePath, 'base64'); // Read file in base64 for sending
+
+      // Append image file as base64 encoded string
+      form.append('file', `data:image/png;base64,${file}`, {
+        filename: imagePathOfReceipt.split('/').pop(),
         contentType: 'image/png',
       });
+      
+      // Add additional fields for the request
       form.append('model', 'gpt-4');
       form.append('prompt', prompt);
       form.append('max_tokens', '100');
       form.append('temperature', '0.2');
-  
+
+      // Send the API request
       const response = await fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey}`,
           ...form.getHeaders(),
         },
-        body: form,
+        body: form.getBuffer(),
       });
-  
+
       const data = await response.json();
       return data;
     } catch (error) {
