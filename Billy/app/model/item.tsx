@@ -1,14 +1,16 @@
+import { User } from './user';
+
 export class Item {
   private id : number;
   private name : string;
   private price : number;
-  private accountedFor : boolean;
+  private takenBy : string | User | null;
 
-  constructor(id: number, name : string, price : number) {
+  constructor(id: number, name : string, price : number, takenBy : string | User | null) {
     this.id = id;
     this.name = name;
     this.price = price;
-    this.accountedFor = false;
+    this.takenBy = takenBy;
   }
 
   public getId() : number {
@@ -23,11 +25,15 @@ export class Item {
     return this.price;
   }
 
-  public getAccountedFor() : boolean {
-    return this.accountedFor;
+  public setTakenBy(user : string | User | null) : void {
+    this.takenBy = user;
   }
 
-  public changeAccountedFor() : void {
-    this.accountedFor = !this.accountedFor;
+  public getTakenBy() : string | User | null {
+    return this.takenBy;
+  }
+
+  public getAccountedFor() : boolean {
+    return this.takenBy !== null;
   }
 }

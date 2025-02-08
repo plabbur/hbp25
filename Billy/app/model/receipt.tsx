@@ -65,7 +65,7 @@ export class Receipt {
     const receiptData = await this.readReceipt(receiptImgPath);
     const items = receiptData.choices[0].text.split('\n').map((item : string, index : number) => {
       const [name, price] = item.split(' : ');
-      return new Item(index, name, parseFloat(price));
+      return new Item(index, name, parseFloat(price), null);
     });
 
     return items;
