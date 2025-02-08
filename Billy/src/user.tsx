@@ -11,6 +11,7 @@ export class User {
   private id : number;
   private name : string;
   private username : string;
+  private phoneNumber : number;
   private email : string;
   private currency : Currency;
   private friends : User[];
@@ -18,10 +19,16 @@ export class User {
   private pastBills : Bill[];
 
 
-  constructor(id : number, name : string, username : string, email : string, currency : Currency, friends : User[] = [], activeBills : Bill[] = [], pastBills : Bill[] = []) {
+  constructor(id : number, name : string, username : string, phoneNumber : number, email : string, currency : Currency, friends : User[] = [], activeBills : Bill[] = [], pastBills : Bill[] = []) {
     this.id = id;
     this.name = name;
     this.username = username;
+
+    const verifiedPhoneNumber = this.verifyPhoneNumber(phoneNumber);
+    if (verifiedPhoneNumber instanceof Error) {
+      throw verifiedPhoneNumber;
+    }
+    this.phoneNumber = verifiedPhoneNumber;
 
     const verifiedEmail = this.verifyEmail(email);
     if (verifiedEmail instanceof Error) {
@@ -47,6 +54,10 @@ export class User {
     } else {
       return new Error("Invalid email address");
     }
+  }
+
+  private verifyPhoneNumber(phoneNumber : number) : number | Error {
+    return phoneNumber.toString().length === 10 ? phoneNumber : new Error("Invalid phone number");
   }
 
   public changeName(newName : string) : void {
