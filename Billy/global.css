@@ -2,3 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Bricolage';
+    src: url("../assets/fonts/bricolage/fonts/otf/BricolageGrotesque-Regular.otf") format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Bricolage';
+    src: url("../assets/fonts/bricolage/fonts/otf/BricolageGrotesque-Medium.otf") format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+  
+@font-face {
+    font-family: 'Bricolage';
+    src: url("../assets/fonts/bricolage/fonts/otf/BricolageGrotesque-SemiBold.otf") format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Bricolage';
+    src: url("../assets/fonts/bricolage/fonts/otf/BricolageGrotesque-Bold.otf") format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}

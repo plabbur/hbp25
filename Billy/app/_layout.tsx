@@ -6,9 +6,20 @@ export default function RootLayout() {
     name="index"
     options={{ headerShown: false, gestureEnabled: false }}
   />
+  <Stack.Screen 
+    name="login" 
+    options={{headerShown: false, gestureEnabled: true}} />
   <Stack.Screen
     name="home"
     options={{headerShown: false, gestureEnabled: false}}
+  />
+  <Stack.Screen
+    name="scan"
+    options={{headerShown: false, gestureEnabled: true, presentation: "modal"}}
+  />
+  <Stack.Screen
+    name="viewphoto"
+    options={{headerShown: false, gestureEnabled: true, presentation: "modal"}}
   />
   </Stack>
 }

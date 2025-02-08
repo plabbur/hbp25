@@ -32,7 +32,12 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      ["expo-camera",
+        {
+          "cameraPermission": "Allow $(Billy) to access your camera",
+          "microphonePermission": "Allow $(Billy) to access your microphone",
+        }]
     ],
     "experiments": {
       "typedRoutes": true

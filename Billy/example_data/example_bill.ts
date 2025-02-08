@@ -1,15 +1,18 @@
-import { UserType } from '@/context/UserContext';
-import { ItemType } from '@/context/ItemContext';
+import { UserType, useUser } from '@/context/UserContext';
+import { ItemType, useItem } from '@/context/ItemContext';
 import { BillType } from '@/context/BillContext';
 
+// const {createUser} = useUser();
+// const {createItem} = useItem();
+
 // Create example users
-const user1 = new User(1, 'Alice', 'alice123', 'alice@example.com', 'USD');
-const user2 = new User(2, 'Bob', 'bob456', 'bob@example.com', 'USD');
+const user1: UserType = {id: 1, name: 'Alice', username: 'alice123', email: 'alice@example.com', currency: 'USD', friends: [], activeBills: [], pastBills: []};
+const user2: UserType = {id: 2, name: 'Bob', username: 'bob456', email: 'bob@example.com', currency: 'USD', friends: [], activeBills: [], pastBills: []};
 
 // Create example items
-const item1 = new Item(101, 'Pizza', 12.99);
-const item2 = new Item(102, 'Burger', 9.99);
-const item3 = new Item(103, 'Soda', 2.50);
+const item1: ItemType = {id: 101, name: 'Pizza', price: 12.99, accountedFor: true};
+const item2: ItemType = {id: 102, name: 'Burger', price: 9.99, accountedFor: true};
+const item3: ItemType = {id: 103, name: 'Soda', price:2.50, accountedFor: true};
 
 // Example bill data
 export const exampleBill: BillType = {
