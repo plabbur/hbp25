@@ -1,7 +1,8 @@
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { SplashScreen } from "expo-router";
 import Button from "@/components/Button";
-
+import { exampleBill } from "@/example_data/example_bill";
+import BillPreview from "@/components/BillPreview";
 
 export default function Home() {
     return (
@@ -13,6 +14,7 @@ export default function Home() {
 
             <View>
                 <Text className="font-bricolage text-zinc-400 text-2xl">Recent</Text>
+                <BillPreview bill={exampleBill}/>
             </View>
 
         </SafeAreaView>

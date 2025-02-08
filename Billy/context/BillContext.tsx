@@ -1,22 +1,22 @@
 import React, { createContext, useContext, useState } from 'react';
-import { User } from './user';
-import { Item } from './item';
+import { UserType } from './UserContext';
+import { ItemType } from './ItemContext';
 
 export type BillType = {
   id: number | null;
-  billStarter: User | null;
+  billStarter: UserType | null;
   title: string;
   date: Date;
-  items: Item[];
+  items: ItemType[];
   tax: number;
   withTip: boolean;
   tipPercentage: number;
-  partyMembers: User[];
+  partyMembers: UserType[];
 };
 
 const BillContext = createContext<{
   bill: BillType;
-  createBill: (id: number, billStarter: User, title: string, date: Date, tax: number, withTip: boolean, tipPercentage: number, items?: Item[], partyMembers?: User[]) => void;
+  createBill: (id: number, billStarter: UserType, title: string, date: Date, tax: number, withTip: boolean, tipPercentage: number, items?: Item[], partyMembers?: User[]) => void;
   changeTitle: (newTitle: string) => void;
   changeDate: (newDate: Date) => void;
   calculateSubtotal: () => number;
@@ -25,10 +25,10 @@ const BillContext = createContext<{
   changeTipPercentage: (newTipPercentage: number) => void;
   calculateTip: () => number;
   getTotalAmount: () => number;
-  addItem: (item: Item) => void;
-  removeItem: (item: Item) => void;
-  addPartyMember: (newMember: User) => void;
-  removePartyMember: (member: User) => void;
+  addItem: (item: ItemType) => void;
+  removeItem: (item: ItemType) => void;
+  addPartyMember: (newMember: UserType) => void;
+  removePartyMember: (member: UserType) => void;
 } | undefined>(undefined);
 
 export const BillProvider = ({ children }) => {

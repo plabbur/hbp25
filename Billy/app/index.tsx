@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { router, SplashScreen } from "expo-router";
 import Button from "@/components/Button";
 import { BillProvider } from "@/context/BillContext";
+import { ItemProvider } from "@/context/ItemContext";
+import { UserProvider } from "@/context/UserContext";
 
 
 export default function Index() {
@@ -23,16 +25,21 @@ export default function Index() {
 
   return (
     <BillProvider>
-    <View className="flex-1 bg-blue-600">
-      <SafeAreaView className="flex-1 justify-between items-center">
-        <Text className="font-bold font-bricolage text-white text-5xl my-10">Billy</Text>
+      <UserProvider>
+        <ItemProvider>
+          <View className="flex-1 bg-blue-600">
+            <SafeAreaView className="flex-1 justify-between items-center">
+              <Text className="font-bold font-bricolage text-white text-5xl my-10">Billy</Text>
 
-        <View className="w-full">
-          <Button title="Log in" onPress={() => {router.push("/home")}} textStyles="text-blue-600" buttonStyles="bg-white my-2 mx-16"/>
-          <Button title="Sign up" onPress={() => {console.log("Sign up")}} textStyles="text-white" buttonStyles="my-2 mx-16" showBorder={true}/>
-        </View>
-      </SafeAreaView>
-    </View>
+              <View className="w-full">
+                <Button title="Log in" onPress={() => {router.push("/home")}} textStyles="text-blue-600" buttonStyles="bg-white my-2 mx-16"/>
+                <Button title="Sign up" onPress={() => {console.log("Sign up")}} textStyles="text-white" buttonStyles="my-2 mx-16" showBorder={true}/>
+              </View>
+            </SafeAreaView>
+          </View>
+        </ItemProvider>
+      </UserProvider>
+    
     </BillProvider>
   );
 }

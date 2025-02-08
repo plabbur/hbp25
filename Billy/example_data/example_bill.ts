@@ -1,5 +1,5 @@
-import { User } from './user';
-import { Item } from './item';
+import { UserType } from '@/context/UserContext';
+import { ItemType } from '@/context/ItemContext';
 import { BillType } from '@/context/BillContext';
 
 // Create example users
