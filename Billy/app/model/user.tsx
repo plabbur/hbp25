@@ -107,4 +107,10 @@ export class User {
   public removePastBill(bill: Bill) : void {
     this.pastBills = this.pastBills.filter(b => b.getId() !== bill.getId());
   }
+  public getUsername(): string { return this.username }
+  public getName(): string { return this.name }
+  public getPhoneNumber(): number { return this.phoneNumber}
+  public getEmail(): string { return this.email }
+  public getActiveBills(): Bill[] { return this.activeBills }
+  public getPastBills(): Bill[] { return this.pastBills }
 }
