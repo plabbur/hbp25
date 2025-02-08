@@ -1,25 +1,8 @@
-import { User } from './profile';
+import { User } from './user';
+import { Item } from './item';
 
-class Item {
-  name : string;
-  price : number;
-  private accountedFor : boolean;
 
-  constructor(name : string, price : number) {
-    this.name = name;
-    this.price = price;
-    this.accountedFor = false;
-  }
-
-  public getAccountedFor() : boolean {
-    return this.accountedFor;
-  }
-
-  changeAccountedFor() : void {
-    this.accountedFor = !this.accountedFor;
-  }
-}
-
+/* A recipted bill. */
 export class Bill {
   private id : number;
   private billStarter : User;
@@ -47,7 +30,7 @@ export class Bill {
     return this.id;
   }
 
-  private changeTitle(newTitle : string) : void {
+  public changeTitle(newTitle : string) : void {
     this.title = newTitle;
   }
 
@@ -55,15 +38,15 @@ export class Bill {
     return this.title;
   }
 
-  private changeDate(newDate : Date) : void {
+  public changeDate(newDate : Date) : void {
     this.date = newDate;
   }
 
   public calculateSubtotal() : number {
-    return this.items.reduce((acc, item) => acc + item.price, 0);
+    return this.items.reduce((acc, item) => acc + item.getPrice(), 0);
   }
   
-  private changeTax(newTax : number) : void {
+  public changeTax(newTax : number) : void {
     this.tax = newTax;
   }
 
@@ -71,11 +54,11 @@ export class Bill {
     return this.tax;
   }
 
-  private changeWithTip(newWithTip : boolean) : void {
+  public changeWithTip(newWithTip : boolean) : void {
     this.withTip = newWithTip;
   }
 
-  private changeTipPercentage(newTipPercentage : number) : void {
+  public changeTipPercentage(newTipPercentage : number) : void {
     this.tipPercentage = newTipPercentage;
   }
 
@@ -97,30 +80,35 @@ export class Bill {
   }
 
   protected removeItem(item : Item) : void {
-    this.items = this.items.filter(i => i.name !== item.name);
+    this.items = this.items.filter(i => i.getName() !== item.getName());
   }
 
-  private addPartyMember(newMember : User) : void {
+  public addPartyMember(newMember : User) : void {
     this.partyMembers.push(newMember);
   }
 
-  private removePartyMember(member : User) : void {
-    this.partyMembers = this.partyMembers.filter(m => m.username !== member.username);
+  public removePartyMember(member : User) : void {
+    this.partyMembers = this.partyMembers.filter(m => m.getId() !== member.getId());
+  }
+
+  public getPartySize() : number {
+    return this.partyMembers.length;
   }
 }
 
+/* A portion of a bill that is accounted for by a user. */
 class SplitBill {
-  private splitOwner: User;
-  protected mainBill : Bill;
+  private owner: User;
+  private mainBill : Bill;
   private splitItems : Item[];
 
-  constructor(splitOwner : User, mainBill : Bill, splitItems : Item[] = []) {
-    this.splitOwner = splitOwner;
+  constructor(owner : User, mainBill : Bill, splitItems : Item[] = []) {
+    this.owner = owner;
     this.mainBill = mainBill;
     this.splitItems = splitItems;
   }
 
-  protected addItem(item : Item) : void | Error {
+  public addItem(item : Item) : void | Error {
     if (!item.getAccountedFor()) {
       this.splitItems.push(item);
       item.changeAccountedFor();
@@ -129,12 +117,13 @@ class SplitBill {
     }
   }
 
-  protected removeItem(item : Item) : void {
-    this.splitItems = this.splitItems.filter(i => i.name !== item.name);
+  public removeItem(item : Item) : void {
+    this.splitItems = this.splitItems.filter(i => i.getId() !== item.getId());
+    item.changeAccountedFor();
   }
 
-  protected calculateSplitTotal () : number {
-    const subtotal : number = this.splitItems.reduce((acc, item) => acc + item.price, 0);
+  public calculateSplitTotal () : number {
+    const subtotal = this.splitItems.reduce((acc, item) => acc + item.getPrice(), 0);
     return subtotal * (1 + this.mainBill.getTipPercentage()) + this.mainBill.getTax();
   }
 }
