@@ -21,5 +21,13 @@ export default function RootLayout() {
     name="viewphoto"
     options={{headerShown: false, gestureEnabled: true, presentation: "modal"}}
   />
+  <Stack.Screen
+    name="confirm-items"
+    options={{headerShown: false, gestureEnabled: false}}
+  />
+  <Stack.Screen
+    name="add-tip"
+    options={{headerShown: false, gestureEnabled: false}}
+  />
   </Stack>
 }
