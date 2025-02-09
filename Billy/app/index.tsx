@@ -35,11 +35,11 @@ export default function Index() {
         <ItemProvider>
           <View className="flex-1 bg-blue-600">
             <SafeAreaView className="flex-1 justify-between items-center">
-              <Text className="text-white text-5xl my-10" style={{fontFamily: "Bricolage Bold", fontWeight: 700}}>Billy</Text>
+              <Text className="text-white text-5xl my-10 py-4" style={{fontFamily: "Bricolage Bold", fontWeight: 700}}>Billy</Text>
 
               <View className="w-full">
-                <Button title="Log in" onPress={() => {router.push("/login")}} textStyles="text-blue-600" buttonStyles="bg-white my-2 mx-16"/>
-                <Button title="Sign up" onPress={() => {console.log("Sign up")}} textStyles="text-white" buttonStyles="my-2 mx-16" showBorder={true}/>
+                <Button title="Log in" onPress={() => {router.push("/login")}} textStyles="text-blue-600" buttonStyles="bg-white my-2 mx-5 shadow-2xl" hideShadow={true}/>
+                <Button title="Sign up" onPress={() => {console.log("Sign up")}} textStyles="text-white" buttonStyles="bg-blue-600 my-2 mx-5" showBorder={true} hideShadow={true}/>
               </View>
             </SafeAreaView>
           </View>

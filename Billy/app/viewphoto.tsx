@@ -41,19 +41,19 @@ export default function ViewPhoto() {
             </View>
 
             <View className="w-full flex-row relative mt-5 items-center justify-center">
-                <TouchableOpacity className={`py-5 w-2/5 rounded-full shadow-2xl bg-white items-center justify-center mx-2`} onPress={() => {router.dismiss(); router.push("/scan")}}>
-                    <Text className={`font-inter font-semibold text-lg text-zinc-400`}>Retake photo</Text>
+                <TouchableOpacity 
+                    className="py-5 flex-1 max-w-[180px] rounded-full shadow-2xl bg-white items-center justify-center mx-2"
+                    onPress={() => {router.dismiss(); router.push("/scan")}}
+                >
+                    <Text className="font-inter font-medium text-lg text-zinc-400">Retake photo</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                    className={`py-5 w-2/5 rounded-full shadow-2xl bg-blue-600 items-center justify-center mx-2`} 
-                    onPress={() => {router.dismiss(); router.push("/add-tip")}}
+                    className="py-5 flex-1 max-w-[180px] rounded-full shadow-2xl bg-blue-600 items-center justify-center mx-2" 
+                    onPress={() => {router.dismiss(); router.push("/confirm-items")}}
                 >
-                    <Text className={`font-inter font-bold text-lg text-white`}>Looks good</Text>
+                    <Text className="font-inter font-semibold text-lg text-white">Looks good</Text>
                 </TouchableOpacity>
-
-
-                {/* <Button title="Looks good" onPress={() => {console.log("Looks good")}} textStyles="text-white" buttonStyles="bg-blue-600 mx-2 px-7"/> */}
             </View>
         </SafeAreaView>
     );
