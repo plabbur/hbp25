@@ -1,9 +1,9 @@
-import { User } from './user';
-import { Item } from './item';
+import User from './user';
+import Item from './item';
 
 
 /* A recipted bill. */
-export class Bill {
+export default class Bill {
   private id : number;
   private billStarter : User;
   private title : string;
@@ -14,7 +14,7 @@ export class Bill {
   private tipPercentage : number;
   private partyMembers : User[];
 
-  constructor(id : number, billStarter : User, title : string, date : Date = new Date(), tax : number, withTip : boolean, tipPercentage : number, items : Item[] = [], partyMembers : User[] = [billStarter]) {
+  constructor(id : number, billStarter : User, title : string, date : Date = new Date(), items : Item[] = [], tax : number, withTip : boolean, tipPercentage : number, partyMembers : User[] = [billStarter]) {
     this.id = id;
     this.billStarter = billStarter;
     this.title = title;

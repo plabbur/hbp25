@@ -1,6 +1,6 @@
-import { User } from './user';
+import User from './user';
 
-export class Item {
+export default class Item {
   private id : number;
   private name : string;
   private price : number;

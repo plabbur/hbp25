@@ -3,10 +3,14 @@ import Feather from "@expo/vector-icons/Feather";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView, View, Text, TouchableOpacity, useWindowDimensions, Image } from "react-native";
 import colors from "tailwindcss/colors";
+import Receipt from "/model/receipt";
+import Bill from "/model/bill";
+import { useState } from "react";
 
 export default function ViewPhoto() {
     const { photo } = useLocalSearchParams(); // Store captured photo
     const decodedPhoto = decodeURIComponent(photo);
+    const [bill, setBill] = useState(null);
 
     return (
         <SafeAreaView className="flex-1 my-3 items-center mx-3">
@@ -47,7 +51,11 @@ export default function ViewPhoto() {
 
                 <TouchableOpacity 
                     className={`py-5 w-2/5 rounded-full shadow-2xl bg-blue-600 items-center justify-center mx-2`} 
-                    onPress={() => {router.dismiss(); router.push("/add-tip")}}
+                    onPress={() => {
+                        router.dismiss();
+                        const receipt : Receipt = new Receipt();
+                        const bill = receipt.makeBillFromReceipt();
+                        router.push("/add-tip")}}
                 >
                     <Text className={`font-inter font-bold text-lg text-white`}>Looks good</Text>
                 </TouchableOpacity>

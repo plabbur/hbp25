@@ -1,4 +1,4 @@
-import { Bill } from './bill';
+import Bill from './bill';
 
 enum Currency {
   UnitedStatesDollar = "USD",
@@ -7,7 +7,7 @@ enum Currency {
   BritishPound = "GBP"
 }
 
-export class User {
+export default class User {
   private id : number;
   private name : string;
   private username : string;
