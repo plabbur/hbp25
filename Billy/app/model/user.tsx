@@ -1,10 +1,10 @@
 import Bill from './bill';
 
-enum Currency {
+export enum Currency {
   UnitedStatesDollar = "USD",
-  CanadianDollar = "CAD",
-  Euro = "EUR",
-  BritishPound = "GBP"
+  // CanadianDollar = "CAD",
+  // Euro = "EUR",
+  // BritishPound = "GBP"
 }
 
 export default class User {
@@ -18,8 +18,7 @@ export default class User {
   private activeBills : Bill[];
   private pastBills : Bill[];
 
-
-  constructor(id : number, name : string, username : string, phoneNumber : number, email : string, currency : Currency, friends : User[] = [], activeBills : Bill[] = [], pastBills : Bill[] = []) {
+  constructor(id : number, name : string, username : string, phoneNumber : number, email : string, currency : Currency = Currency.UnitedStatesDollar, friends : User[] = [], activeBills : Bill[] = [], pastBills : Bill[] = []) {
     this.id = id;
     this.name = name;
     this.username = username;
@@ -78,6 +77,10 @@ export default class User {
 
   public changeCurrency(newCurrency : Currency) : void {
     this.currency = newCurrency;
+  }
+
+  public getCurrency() : Currency {
+    return this.currency;
   }
 
   public addFriend(friend : User) : void {

@@ -3,13 +3,16 @@ import Feather from "@expo/vector-icons/Feather";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView, View, Text, TouchableOpacity, useWindowDimensions, Image } from "react-native";
 import colors from "tailwindcss/colors";
-import Receipt from "/model/receipt";
-import Bill from "/model/bill";
+import Receipt from "../app/model/receipt";
+import Bill from "../app/model/bill";
+import User from "../app/model/user";
+import Currency from "../app/model/user";
 import { useState } from "react";
+import supabase from '../src/index'
 
 export default function ViewPhoto() {
     const { photo } = useLocalSearchParams(); // Store captured photo
-    const decodedPhoto = decodeURIComponent(photo);
+    const decodedPhoto = Array.isArray(photo) ? decodeURIComponent(photo[0]) : decodeURIComponent(photo);
     const [bill, setBill] = useState(null);
 
     return (
@@ -51,11 +54,14 @@ export default function ViewPhoto() {
 
                 <TouchableOpacity 
                     className={`py-5 w-2/5 rounded-full shadow-2xl bg-blue-600 items-center justify-center mx-2`} 
-                    onPress={() => {
+                    onPress={async () => {
                         router.dismiss();
                         const receipt : Receipt = new Receipt();
-                        const bill = receipt.makeBillFromReceipt();
-                        router.push("/add-tip")}}
+                        const user = new User(0, "", "", 0, "");
+                        const bill : Bill = receipt.makeBillFromReceipt(user, "", decodedPhoto);
+                        console.log(bill);
+                        // router.push("/add-tip")
+                        }}
                 >
                     <Text className={`font-inter font-bold text-lg text-white`}>Looks good</Text>
                 </TouchableOpacity>
