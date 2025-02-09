@@ -111,7 +111,7 @@ class SplitBill {
   public addItem(item : Item) : void | Error {
     if (!item.getAccountedFor()) {
       this.splitItems.push(item);
-      item.changeAccountedFor();
+      item.setTakenBy(this.owner);
     } else {
       throw new Error("This item has already been accounted for!");
     }
@@ -119,7 +119,7 @@ class SplitBill {
 
   public removeItem(item : Item) : void {
     this.splitItems = this.splitItems.filter(i => i.getId() !== item.getId());
-    item.changeAccountedFor();
+    item.setTakenBy(null);
   }
 
   public calculateSplitTotal () : number {

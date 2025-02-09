@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Billy/src/index.tsx
 import AsyncStorage from '@react-native-async-storage/async-storage/src/AsyncStorage'
 import { createClient } from '@supabase/supabase-js'
 import { Database } from './supabase-generated-types'
@@ -13,3 +14,5 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
     detectSessionInUrl: false,
   },
 });
+=======
+>>>>>>> 170344a534c089f661e748236b8fdd45f33ea122:Billy/lib/supabaseClient.tsx
