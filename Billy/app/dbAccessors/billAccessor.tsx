@@ -1,5 +1,6 @@
-// import { supabase } from "../../lib/supabaseClient"
+import { supabase } from "../../src"
 import { QueryData, QueryError, QueryResult } from "@supabase/supabase-js"
+import { Bill } from "../model/bill"
 
 const BILL_INVITE_ROUTE = '/invite'
 
@@ -10,7 +11,25 @@ const BILL_INVITE_ROUTE = '/invite'
 export default class BillAccessor {
     static async getBillByID(): Promise<any> {
     }
-    // postNewBill
+    static async createBill(bill: Bill) {
+/**
+ * private id : number;
+   private billStarter : User;
+   private title : string;
+   private items: Item[];
+   private tax : number;
+   private withTip : boolean;
+   private tipPercentage : number;
+   private partyMembers : User[];
+ */
+        let bill_items = supabase
+        .from('profiles')
+        .insert({
+            title: bill.getTitle(),
+            items: 
+            
+        })
+    }
     // deleteBill
     // updateBill
 
