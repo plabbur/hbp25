@@ -13,6 +13,7 @@ export default class Receipt {
     this.tax = tax;
   }
 
+  // Read text from image and process 
   private async readReceipt(imagePathOfReceipt: string): Promise<string> {
     const apiKey = Config.OPENAI_API_KEY;
 
@@ -26,18 +27,26 @@ export default class Receipt {
     const prompt = 'Generate a line-separated list of items on this receipt in the form "\{item_name} : {price}\". \
     If an item has a quantity of more than one, list it that many times. Let the last line of the list be the tax \
     formatted as \"Tax : {tax_amount}\" (if not shown, the value should be zero). All prices and taxes should exclude a currency symbol. \
-    Use the following text as the receipt: ' + recognizedText;
+    Use the following text as the receipt: ';
+
+    const system_msg = "You are a receipt parser. Any text given to you is that you would find on a receipt. \
+    Extract all the necessary price information."
+
+    const user_msg = prompt + recognizedText;
 
     try {
-      const response = await fetch('https://api.openai.com/v1/completions', {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'gpt-4o-mini',
-          prompt: prompt,
+          model: 'gpt-4',
+          messages: [
+            { role: 'system', content: system_msg },
+            { role: 'user', content: user_msg }
+          ],
           max_tokens: 150,
           temperature: 0.2,
           n: 1,
